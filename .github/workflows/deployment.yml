@@ -12,14 +12,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: forms
-          POSTGRES_USER: forms
-          POSTGRES_PASSWORD: postgres
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
