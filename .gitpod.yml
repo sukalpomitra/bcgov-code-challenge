@@ -15,7 +15,7 @@ tasks:
     command: mvn liquibase:update
 
   - name: Start Service
-    command: docker run -p 8080:8080 -t sukalpomitra/bcgov-code-challenge:latest
+    command: docker run -p 8080:8080 -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
 
 
 
