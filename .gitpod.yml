@@ -4,8 +4,7 @@
 
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-postgres
 
 tasks:
   - name: Start PostgreSQL
