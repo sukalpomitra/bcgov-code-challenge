@@ -4,7 +4,19 @@
 
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
-  - init: ./mvnw install -DskipTests=false
+  - name: Start PostgreSQL
+    command: sudo service postgresql start
+
+  - name: Build Docker Image with Jib
+    command: ./mvnw clean compile jib:build
+
+  - name: Run Spring Boot App
+    command: java -jar target/your-spring-boot-app.jar
+
+
 
 
