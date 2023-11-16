@@ -37,3 +37,6 @@ jobs:
           mkdir -p .m2/repository
           du -h -d1 .m2/repository
           mvn $MAVEN_CLI_OPTS compile jib:build -Djib.to.image=ghcr.io/sukalpomitra/bcgov-code-challenge:latest
+
+      - name: push Docker image
+        run: docker push registry.gitpod.io/your-username/your-repo:latest
