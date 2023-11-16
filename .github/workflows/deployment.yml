@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  MAVEN_CLI_OPTS: -Dmaven.repo.local=./.m2/repository --batch-mode
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,8 +24,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and push Docker image with Jib
+      - name: Login to GHCR (GITHUB CONTAINER REGISTRY)
         run: |
-          ./mvnw clean compile jib:build
-          echo "${{ secrets.GHCR_PWD }}" | docker login https://ghcr.io -u ${{ secrets.GHCR_USER }} --password-stdin
-          docker push registry.gitpod.io/your-username/your-repo:latest
+          echo ${{ secrets.GHCR_PWD }} | docker login https://ghcr.io -u ${{ secrets.GHCR_USER }} --password-stdin
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "zulu"
+      - run: |
+          mkdir -p .m2/repository
+          du -h -d1 .m2/repository
+          mvn $MAVEN_CLI_OPTS compile jib:build -Djib.to.image=ghcr.io/sukalpomitra/bcgov-code-challenge:latest
