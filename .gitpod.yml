@@ -11,6 +11,9 @@ tasks:
   - name: Start PostgreSQL
     command: sudo service postgresql start
 
+  - name: Run Liquibase
+    command: mvn liquibase:update
+
   - name: Start Service
     command: docker run -p 8080:8080 -t sukalpomitra/bcgov-code-challenge:latest
 
