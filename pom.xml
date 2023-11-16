@@ -94,6 +94,15 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<version>3.1.4</version>
 				<configuration>
+					<from>
+						<image>gcr.io/distroless/java17</image>
+						<platforms>
+							<platform>
+								<architecture>amd64</architecture>
+								<os>linux</os>
+							</platform>
+						</platforms>
+					</from>
 					<to>
 						<image>ghcr.io/sukalpomitra/bcgov-code-challenge:latest</image>
 					</to>
