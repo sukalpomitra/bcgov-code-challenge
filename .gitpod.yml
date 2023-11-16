@@ -9,5 +9,9 @@ image: gitpod/workspace-postgres
 tasks:
   - name: Start Service
     init: echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-    command: docker run -p 8080:8080 --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
+    command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
+
+ports:
+  - port: 8080
+    onOpen: ignore
 
