@@ -9,7 +9,7 @@ image: gitpod/workspace-postgres
 tasks:
   - name: Start Service
     init: echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-    command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
+    command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest -d
 
 ports:
   - name: Backend
