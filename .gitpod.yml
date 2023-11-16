@@ -12,6 +12,8 @@ tasks:
     command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
 
 ports:
-  - port: 8080
+  - name: Backend
+    port: 8080
     onOpen: ignore
+    visibility: public
 
