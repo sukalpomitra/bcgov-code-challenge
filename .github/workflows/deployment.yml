@@ -29,13 +29,3 @@ jobs:
           mkdir -p .m2/repository
           du -h -d1 .m2/repository
           mvn $MAVEN_CLI_OPTS compile jib:build -Djib.to.image=ghcr.io/sukalpomitra/bcgov-code-challenge:latest
-
-      - name: Install Gitpod CLI
-        run: |
-          wget -qO- https://gitpod.io/cli/install.sh | bash
-          export PATH=$PATH:/path/to/.gitpod/cli/latest/bin
-
-      - name: Start Gitpod Workspace
-        run: |
-          export REPO_URL="https://github.com/sukalpomitra/bcgov-code-challenge"
-          gitpod workspace start "$REPO_URL#main"
