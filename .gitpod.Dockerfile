@@ -9,8 +9,8 @@ RUN apt-get install -y postgresql postgresql-contrib
 # Configure PostgreSQL
 USER postgres
 RUN /etc/init.d/postgresql start && \
-    psql --command "CREATE USER postgres WITH SUPERUSER PASSWORD 'postgres';" && \
-    createdb -O postgres postgres
+    psql --command "CREATE USER forms WITH SUPERUSER PASSWORD 'postgres';" && \
+    createdb -O forms forms
 USER root
 
 # Set up working directory
