@@ -1,10 +1,7 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-postgres
 
 # Install Maven
 RUN sudo apt-get update && sudo apt-get install -y maven
-
-# Install PostgreSQL
-RUN sudo apt-get install -y postgresql postgresql-contrib
 
 # Configure PostgreSQL
 USER postgres
