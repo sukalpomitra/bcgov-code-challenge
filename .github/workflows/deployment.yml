@@ -16,8 +16,8 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres
+          POSTGRES_DB: forms
+          POSTGRES_USER: forms
           POSTGRES_PASSWORD: postgres
 
     steps:
