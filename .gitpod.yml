@@ -8,6 +8,9 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - name: Start PostgreSQL
+    command: pg_start.sh
+
   - name: Start Service
     init: echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
     command: docker run -p 8080:8080 -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest
