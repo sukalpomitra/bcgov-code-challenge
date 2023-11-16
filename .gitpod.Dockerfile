@@ -15,5 +15,3 @@ USER root
 
 # Set up working directory
 WORKDIR /workspace
-
-docker run -p 8080:8080 -t your-username/your-repo:latest
