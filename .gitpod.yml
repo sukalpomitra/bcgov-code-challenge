@@ -14,7 +14,9 @@ tasks:
 
   - name: Test Service
     init: npm install cypress
-    command: npx cypress run
+    command: |
+      cd test
+      npx cypress run
 
 ports:
   - name: Backend
