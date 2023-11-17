@@ -11,6 +11,10 @@ tasks:
     init: echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
     command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest -d
 
+  - name: Test Service
+    init: npm install cypress
+    command: cypress -v
+
 ports:
   - name: Backend
     port: 8080
