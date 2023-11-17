@@ -4,7 +4,8 @@
 
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
-image: gitpod/workspace-postgres
+image: 
+  file: .gitpod.Dockerfile
 
 tasks:
   - name: Start Service
@@ -13,7 +14,7 @@ tasks:
 
   - name: Test Service
     init: npm install cypress
-    command: cypress -v
+    command: npx cypress run
 
 ports:
   - name: Backend
