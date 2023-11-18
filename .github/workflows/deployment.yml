@@ -51,8 +51,8 @@ jobs:
         with:
           registry: ghcr.io
           # the username and password are hardcoded only for demo purposes
-          username: arshad-innofyre
-          password: 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
+          username: ${{ secrets.GHCR_USER }}
+          password: ${{ secrets.GHCR_PWD }}
 
       # Build and push the Docker image for the backend
       - name: "Build and push Docker image backend"
@@ -61,7 +61,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ghcr.io/arshad-innofyre/bcgov-code-challenge-backend:latest
+          tags: ghcr.io/sukalpomitra/bcgov-code-challenge-backend:latest
 
   # Job to build and push the database Docker image
   build-push-database:
@@ -77,8 +77,8 @@ jobs:
         with:
           registry: ghcr.io
           # the username and password are hardcoded only for demo purposes
-          username: arshad-innofyre
-          password: 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
+          username: ${{ secrets.GHCR_USER }}
+          password: ${{ secrets.GHCR_PWD }}
 
       # Build and push the Docker image for the database
       - name: "Build and push Docker image database"
@@ -87,7 +87,7 @@ jobs:
           context: ./database
           file: ./database/Dockerfile
           push: true
-          tags: ghcr.io/arshad-innofyre/bcgov-code-challenge-database:latest
+          tags: ghcr.io/sukalpomitra/bcgov-code-challenge-database:latest
 
   # Job to run Cypress tests in the frontend
   # run-cypress-tests:
