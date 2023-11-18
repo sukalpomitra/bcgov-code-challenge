@@ -4,7 +4,13 @@ tasks:
   # Task to set up configurations, create a Docker network, etc.
   - name: Run Deployment
     command: |
-      docker compose up
+      docker-compose up -d
+      cd frontend
+      # Wait for port 8080 to be available before starting the frontend container
+      gp ports await 8080
+      backend=$(gp url 8080)
+      echo REACT_APP_API_URL=$backend > .env
+      docker-compose up -d
 
 # List of ports to be exposed and their configurations
 ports:
