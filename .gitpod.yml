@@ -10,7 +10,9 @@ image:
 tasks:
   - name: Start Service
     init: echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-    command: docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest -d
+    command: |
+      docker run --network=host -t ghcr.io/sukalpomitra/bcgov-code-challenge:latest -d
+      gp url 8080
 
   - name: Test Service
     init: npm install cypress
