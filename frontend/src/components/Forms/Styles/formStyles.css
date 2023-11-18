@@ -1,0 +1,60 @@
+.title_label {
+  padding: 2vh;
+}
+
+.personal-details-col {
+  margin-bottom: 4vh;
+  padding: 2vh;
+}
+
+.volunteer-details-col {
+  margin-bottom: -1vh;
+  padding: 2vh;
+}
+
+.special_components {
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.skills_ability_section {
+  padding: 2vh;
+}
+
+.skills_ability_label {
+  padding-left: 2vh;
+  padding-bottom: 1vh;
+}
+
+.transportation_label {
+  padding-top: 3vh;
+  padding-bottom: 1vh;
+}
+
+.block-one {
+  background: #edeef0;
+}
+
+.block-two {
+  background: #edeef0;
+  margin-top: 5vh;
+}
+
+.button-col {
+  background: #edeef0;
+}
+
+.submit_btn {
+  margin: 1vh;
+}
+
+.reset_btn {
+  margin: 1vh;
+  margin-left: -10vh;
+}
+
+.form_page {
+  width: 65%;
+  margin: 0 auto;
+  background: white;
+}

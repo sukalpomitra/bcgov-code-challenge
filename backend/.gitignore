@@ -1,0 +1,39 @@
+# Compiled class file
+/target/
+# Maven
+target/
+
+# Generated JAR files
+*.jar
+
+# IDE-specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+
+# Gradle-specific files
+.gradle/
+build/
+
+# Logs
+logs/
+*.log
+
+# IntelliJ
+*.log
+*.iml
+*.iws
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Gradle
+build/

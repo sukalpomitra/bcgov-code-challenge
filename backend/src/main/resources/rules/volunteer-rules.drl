@@ -1,0 +1,97 @@
+import com.innofyre.rhcfs.dto.VolunteerDTO
+import com.innofyre.rhcfs.dto.VolunteerProfileDTO
+import com.innofyre.rhcfs.entity.Disaster
+import com.innofyre.rhcfs.dto.SkillDTO
+import com.innofyre.rhcfs.model.SkillLevel;
+
+dialect "mvel"
+
+rule "Wildfire Level 1 Rules"
+when
+    $volunteer: VolunteerDTO(
+        !profile.limitation.limitationCodes.contains(300),
+        !profile.limitation.limitationCodes.contains(400),
+        hasSkill(1, SkillLevel.ADVANCED),
+        hasSkill(2, SkillLevel.ADVANCED),
+        hasSkill(7, SkillLevel.ADVANCED)
+    )
+    $disaster: Disaster(criticalLevel == 1, name == "Wildfire")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Wildfire Level 2 Rules"
+when
+    $volunteer: VolunteerDTO(
+        !profile.limitation.limitationCodes.contains(300),
+        !profile.limitation.limitationCodes.contains(400),
+        hasSkill(1, SkillLevel.INTERMEDIATE),
+        hasSkill(2, SkillLevel.INTERMEDIATE),
+        hasSkill(7, SkillLevel.INTERMEDIATE)
+    )
+    $disaster: Disaster(criticalLevel == 2, name == "Wildfire")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Wildfire Level 3 Rules"
+when
+    $volunteer: VolunteerDTO(
+        !profile.limitation.limitationCodes.contains(300),
+        !profile.limitation.limitationCodes.contains(400),
+        hasSkill(1, SkillLevel.BEGINNER),
+        hasSkill(2, SkillLevel.BEGINNER),
+        hasSkill(7, SkillLevel.BEGINNER)
+    )
+    $disaster: Disaster(criticalLevel == 3, name == "Wildfire")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Earthquake Rule"
+when
+    $volunteer: VolunteerDTO(
+        hasSkill(1, SkillLevel.BEGINNER),
+        hasSkill(2, SkillLevel.ADVANCED),
+        hasSkill(3, SkillLevel.INTERMEDIATE)
+    )
+    $disaster: Disaster(name == "Earthquake")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Tornadoes Rule"
+when
+    $volunteer: VolunteerDTO(
+        hasSkill(4, SkillLevel.BEGINNER),
+        hasSkill(1, SkillLevel.ADVANCED),
+        hasSkill(7, SkillLevel.BEGINNER)
+    )
+    $disaster: Disaster(name == "Tornadoes")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Flood Rule"
+when
+    $volunteer: VolunteerDTO(
+        hasSkill(11, SkillLevel.INTERMEDIATE),
+        hasSkill(1, SkillLevel.ADVANCED),
+        hasSkill(2, SkillLevel.INTERMEDIATE)
+    )
+    $disaster: Disaster(name == "Flood")
+then
+    $volunteer.setScore(10);
+end
+
+rule "Hurricanes Rule"
+when
+    $volunteer: VolunteerDTO(
+        hasSkill(2, SkillLevel.BEGINNER),
+        hasSkill(7, SkillLevel.INTERMEDIATE),
+        hasSkill(4, SkillLevel.ADVANCED)
+    )
+    $disaster: Disaster(name == "Hurricanes")
+then
+    $volunteer.setScore(10);
+end

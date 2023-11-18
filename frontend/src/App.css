@@ -1,0 +1,20 @@
+@import url('~bootstrap/dist/css/bootstrap.css');
+@import url('~formiojs/dist/formio.full.min.css');
+
+:root {
+  --primary-blue: #072b50;
+  --secondary-light-gery: #838383;
+}
+
+.App {
+  text-align: center;
+}
+
+.color-primary{
+  color: var(--primary-blue);
+}
+
+.color-secondary-light-grey {
+  color: var(--secondary-light-gery);
+}
+

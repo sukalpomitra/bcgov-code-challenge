@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet author="randika" id="createVolunteerTable">
+        <createTable tableName="volunteer">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <!-- Add other columns as needed -->
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="DATE" />
+            <column name="gender" type="VARCHAR(255)" />
+            <!-- Add more columns as needed -->
+        </createTable>
+    </changeSet>
+    <changeSet id="createVolunteerProfileTable" author="randika">
+        <createTable tableName="volunteer-profile">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="years_of_activity" type="INT"/>
+            <column name="emergency_contact_number" type="VARCHAR(255)"/>
+            <column name="has_own_transportation" type="BOOLEAN"/>
+            <column name="availability_type" type="INT"/>
+            <column name="available_days" type="VARCHAR(255)"/>
+            <column name="volunteer_id" type="BIGINT"/>
+            <column name="limitation" type="jsonb" />
+        </createTable>
+        <!-- Add foreign key constraint -->
+        <addForeignKeyConstraint baseTableName="volunteer-profile"
+                                 baseColumnNames="volunteer_id"
+                                 referencedTableName="volunteer"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_volunteer_volunteer-profile"/>
+
+    </changeSet>
+    <changeSet author="randika" id="createSkillTable">
+        <createTable tableName="skill">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- Add other columns as needed -->
+            <column name="skill" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="code" type="INTEGER"/>
+            <!-- Add more columns as needed -->
+        </createTable>
+    </changeSet>
+    <changeSet author="randika" id="createVolunteerRoleTable">
+        <createTable tableName="volunteer-role">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- Add other columns as needed -->
+            <column name="role" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="code" type="INTEGER"/>
+            <!-- Add more columns as needed -->
+        </createTable>
+    </changeSet>
+    <!-- Create Employee Limitation Table  -->
+    <changeSet author="randika" id="createSEmployeeLimitation">
+        <createTable tableName="employee-limitation">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- Add other columns as needed -->
+            <column name="limitation" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="code" type="INTEGER" />
+            <!-- Add more columns as needed -->
+        </createTable>
+    </changeSet>
+    <!-- Create VolunteerProfile table -->
+
+    <!-- Create Disaster Table  -->
+    <changeSet author="randika" id="createDisasterTable">
+        <createTable tableName="disaster">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- Add other columns as needed -->
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="critical_level" type="INTEGER"/>
+            <column name="location" type="VARCHAR(255)" />
+            <column name="disaster_time" type="TIME" />
+            <column name="disaster_date" type="DATE" />
+            <column name="status" type="INTEGER" />
+            <!-- Add more columns as needed -->
+        </createTable>
+    </changeSet>
+    <!-- Create Disaster table -->
+    <!-- Create VolunteerSkill table (Join Table) -->
+    <changeSet id="createVolunteerSkillTable" author="randika">
+        <createTable tableName="volunteer-skills">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="volunteer_profile_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="skill_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="skill_level" type="INT" />
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="volunteer-skills"
+                baseColumnNames="volunteer_profile_id"
+                constraintName="fk_volunteer_profile_id"
+                referencedTableName="volunteer-profile"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="volunteer-skills"
+                baseColumnNames="skill_id"
+                constraintName="fk_skill_id"
+                referencedTableName="skill"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <!-- Create volunteer_profile_days table for customDays -->
+    <changeSet id="create_volunteer_profile_days_table" author="randika">
+        <createTable tableName="volunteer-available-days">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="volunteer_profile_id" type="BIGSERIAL" >
+                <constraints nullable="false" />
+            </column>
+            <column name="days" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="volunteer-available-days"
+                                 baseColumnNames="volunteer_profile_id"
+                                 referencedTableName="volunteer-profile"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_volunteer_available_days_volunteer_profile"/>
+    </changeSet>
+
+    <!-- Create Volunteer Limitation Relationship (Join Table) -->
+    <changeSet id="createVolunteerLimitationRelation" author="randika">
+
+        <createTable tableName="volunteer-limitation">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="volunteer_profile_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee-limitation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="volunteer-limitation"
+                baseColumnNames="volunteer_profile_id"
+                constraintName="fk_volunteer_profile_id"
+                referencedTableName="volunteer"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="volunteer-limitation"
+                baseColumnNames="employee-limitation_id"
+                constraintName="fk_skill_id"
+                referencedTableName="employee-limitation"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <include file="db/changelog/employee-limitation-seeds.sql" />
+    <include file="db/changelog/skills-seeds.sql" />
+    <include file="db/changelog/skills-newvalues-seeds.sql" />
+    <include file="db/changelog/volunteer-role-seeds.sql" />
+    <include file="db/changelog/disaster-seeds.sql" />
+
+</databaseChangeLog>
