@@ -25,8 +25,8 @@ jobs:
         with:
           registry: ghcr.io
            # the username and password are hardcoded only for demo purposes
-          username: arshad-innofyre
-          password: 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
+          username: ${{ secrets.GHCR_USER }}
+          password: ${{ secrets.GHCR_PWD }}
 
       # Build and push the Docker image for the frontend
       - name: "Build and push Docker image frontend"
