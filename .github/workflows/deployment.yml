@@ -35,7 +35,7 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ghcr.io/arshad-innofyre/bcgov-code-challenge-frontend:latest
+          tags: ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest
 
   # Job to build and push the backend Docker image
   build-push-backend:
