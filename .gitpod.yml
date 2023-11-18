@@ -2,58 +2,9 @@
 
 tasks:
   # Task to set up configurations, create a Docker network, etc.
-  - name: Setup Configs
+  - name: Run Deployment
     command: |
-      # remove existing images
-      docker rm -vf $(docker ps -aq)
-      # Create a Docker network named 'appnetwork'
-      docker network create appnetwork
-
-  # Task to start the database container
-  - name: Start database
-    # init: echo $DOCKER_PASSWORD | docker login ghcr.io -u $DOCKER_USER --password-stdin
-    command: |
-      echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-      # Stop the existing database container (if running)
-      docker stop database || true
-      docker rm database || true
-      
-      docker rmi ghcr.io/sukalpomitra/bcgov-code-challenge-database:latest --force
-
-      # Run the database container within the 'appnetwork', mapping port 5432 on the host to 5432 in the container
-      docker run --network=appnetwork -p 5432:5432 --name database ghcr.io/sukalpomitra/bcgov-code-challenge-database:latest
-
-  # Task to start the backend container
-  - name: Start backend
-    # init: echo $DOCKER_PASSWORD | docker login ghcr.io -u $DOCKER_USER --password-stdin
-    command: |
-      echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-      # Stop the existing backend container (if running)
-      docker stop backend || true
-      docker rm backend || true
-
-      docker rmi ghcr.io/sukalpomitra/bcgov-code-challenge-backend:latest --force
-
-      # Wait for port 5432 to be available before starting the backend container
-      gp ports await 5432
-      # Run the backend container within the 'appnetwork', mapping port 8080 on the host to 8080 in the container
-      docker run --network=appnetwork -p 8080:8080 --name backend ghcr.io/sukalpomitra/bcgov-code-challenge-backend:latest
-
-  # Task to start the frontend container
-  - name: Start frontend
-    # init: echo $DOCKER_PASSWORD | docker login ghcr.io -u $DOCKER_USER --password-stdin
-    command: |
-      echo $SECRET | docker login ghcr.io -u sukalpomitra --password-stdin
-      # Stop the existing frontend container (if running)
-      docker stop frontend || true
-      docker rm frontend || true
-
-      docker rmi ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest --force
-      # Wait for port 8080 to be available before starting the frontend container
-      gp ports await 8080
-      backend=$(gp url 8080)
-      # Run the frontend container within the 'appnetwork', mapping port 3000 on the host to 3000 in the container
-      docker run --network=appnetwork -p 3000:3000 -e REACT_APP_API_URL="$backend" --name frontend ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest
+      docker compose up
 
 # List of ports to be exposed and their configurations
 ports:
