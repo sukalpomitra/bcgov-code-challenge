@@ -52,9 +52,9 @@ tasks:
       docker rm frontend || true
 
       docker rmi ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest --force
-      backend=$(gp url 8080)
       # Wait for port 8080 to be available before starting the frontend container
       gp ports await 8080
+      backend=$(gp url 8080)
       # Run the frontend container within the 'appnetwork', mapping port 3000 on the host to 3000 in the container
       docker run --network=appnetwork -p 3000:3000 --name frontend ghcr.io/$DOCKER_USER/bcgov-code-challenge-frontend:latest -e REACT_APP_API_BASE_URL=$backend
 
