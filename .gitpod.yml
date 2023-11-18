@@ -53,7 +53,7 @@ tasks:
       gp ports await 8080
       backend=$(gp url 8080)
       # Run the frontend container within the 'appnetwork', mapping port 3000 on the host to 3000 in the container
-      docker run --network=appnetwork -p 3000:3000 -e REACT_APP_API_BASE_URL=$backend --name frontend ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest
+      docker run --network=appnetwork -p 3000:3000 -e REACT_APP_API_URL=$backend --name frontend ghcr.io/sukalpomitra/bcgov-code-challenge-frontend:latest
 
 # List of ports to be exposed and their configurations
 ports:
